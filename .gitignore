@@ -122,4 +122,8 @@ dist/protocol.schema.json
 
 # Synthing
 **/.stfolder/
-.dev-state
+
+
+# Docker persistent directory
+/.openclaw*/
+/.node*/
