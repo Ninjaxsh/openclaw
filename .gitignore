@@ -126,3 +126,4 @@ dist/protocol.schema.json
 # Docker persistent directory
 /.openclaw*/
 /.node*/
+/.vscode/
