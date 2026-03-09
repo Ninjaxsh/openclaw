@@ -1,11 +1,12 @@
 services:
   openclaw-gateway:
+    container_name: openclaw-gateway
     image: openclaw:local
     environment:
       HOME: /home/node
-      NPM_CONFIG_PREFIX: /home/node/.npm-global                    # added by mark
+      NPM_CONFIG_PREFIX: /home/node/.npm-global                  # npm global - added by mark
       PATH: /home/node/.npm-global/bin:/root/.bun/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-      OPENCLAW_STATE_DIR: /home/node/.openclaw                     # added by mark
+      OPENCLAW_STATE_DIR: /home/node/.openclaw                   # persistent status - added by mark
       TERM: xterm-256color
       OPENCLAW_GATEWAY_TOKEN: ${OPENCLAW_GATEWAY_TOKEN:-}
       OPENCLAW_ALLOW_INSECURE_PRIVATE_WS: ${OPENCLAW_ALLOW_INSECURE_PRIVATE_WS:-}
@@ -16,11 +17,9 @@ services:
     volumes:
       - ${OPENCLAW_CONFIG_DIR}:/home/node/.openclaw
       - ${OPENCLAW_WORKSPACE_DIR}:/home/node/.openclaw/workspace
-      
-      # - ${OPENCLAW_WORKSPACE_DIR}/skills:/home/node/.openclaw/extensions      # added by mark
-      - ./.node/npm-global:/home/node/.npm-global                   # added by mark
-      - ./.node/.npm:/home/node/.npm                                # added by mark
-      - ./.node/.cache:/home/node/.cache                            # added by mark
+      - ${OPENCLAW_DIR}/.node/npm-global:/home/node/.npm-global  # npm global - added by mark
+      - ${OPENCLAW_DIR}/.node/.npm:/home/node/.npm               # npm caches - added by mark
+      - ${OPENCLAW_DIR}/.node/.cache:/home/node/.cache           # node caches - added by mark
       
       ## Uncomment the lines below to enable sandbox isolation
       ## (agents.defaults.sandbox). Requires Docker CLI in the image
@@ -59,6 +58,7 @@ services:
       start_period: 20s
 
   openclaw-cli:
+    container_name: openclaw-cli
     image: openclaw:local
     network_mode: "service:openclaw-gateway"
     cap_drop:
