@@ -7,6 +7,7 @@ services:
       NPM_CONFIG_PREFIX: /home/node/.npm-global                  # npm global - added by mark
       PATH: /home/node/.npm-global/bin:/root/.bun/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
       OPENCLAW_STATE_DIR: /home/node/.openclaw                   # persistent status - added by mark
+      SEARXNG_BASE_URL: http://a.t99.cn:50066                    # configure searXNG - added by mark
       TERM: xterm-256color
       OPENCLAW_GATEWAY_TOKEN: ${OPENCLAW_GATEWAY_TOKEN:-}
       OPENCLAW_ALLOW_INSECURE_PRIVATE_WS: ${OPENCLAW_ALLOW_INSECURE_PRIVATE_WS:-}
