@@ -14,15 +14,18 @@ if [ -f "./docker-setup.sh" ]; then
     echo "------------------------------------------"
     env | grep OPENCLAW_
     echo "------------------------------------------"    
-    
-    # 3. 运行脚本
+
+    # 3. 将 OPENCLAW_DIR 追加写入 .env
+    if grep -q "^OPENCLAW_DIR=" .env 2>/dev/null; then
+        echo "✅ Docker 配置 OPENCLAW_DIR 已存在"
+    else
+        echo "OPENCLAW_DIR=${OPENCLAW_DIR}" >> .env
+    fi  
+
+    # 4. 运行脚本
     # 建议先给脚本执行权限，然后运行
     chmod +x ./docker-setup.sh
     ./docker-setup.sh
-
-    # 4. 将 OPENCLAW_DIR 追加写入 .env
-    echo "OPENCLAW_DIR=${OPENCLAW_DIR}" >> .env
-    echo "✅ 已将 OPENCLAW_DIR 追加写入 .env 文件"
 
 else
     echo "❌ 错误：在当前目录 $(pwd) 下找不到 docker-setup.sh"
